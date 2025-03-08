@@ -4,13 +4,15 @@ const cors = require('cors');
 
 app.use(express.json());
 
-const corsOptions = {
-  origin: ["http://localhost:3000", "https://al-bank.netlify.app"],// Allow requests from frontend
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Include OPTIONS in allowed methods
-  allowedHeaders: ["Authorization", "Content-Type"], // Allow necessary headers
-};
-
 app.use(cors(corsOptions));
+app.use(express.json());
+
+const corsOptions = {
+  origin: true, // You can use a string if there's only one origin
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Authorization", "Content-Type"],
+  credentials: true // Add this if you're using cookies or authentication
+};
 
 const db = require("./models");
 
