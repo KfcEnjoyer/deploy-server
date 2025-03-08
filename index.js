@@ -20,7 +20,13 @@ app.use(express.json());
 app.get('/test', (req, res) => {
   res.json({ message: 'CORS test successful' });
 });
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
 
+app.get('/', (req, res) => {
+  res.status(200).send('Bank API is running!');
+});
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
