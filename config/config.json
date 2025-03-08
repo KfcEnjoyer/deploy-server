@@ -1,0 +1,20 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "lolkek12",
+    "database": "OnlineBank",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port": 5432
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  }
+}
