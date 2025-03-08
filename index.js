@@ -1,17 +1,14 @@
 const express = require("express");
 const app = express();
 const cors = require('cors');
-
-app.use(express.json());
-
-
+app.enable('trust proxy');
 app.use(cors({
   origin: true, // Allow all origins
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Authorization", "Content-Type"],
   credentials: true
 }));
-
+app.options('*', cors()); 
 app.use(express.json());
 
 const db = require("./models");
@@ -32,7 +29,13 @@ app.use("/transactions", transaction);
 const stocks = require('./routes/Stocks');
 app.use('/api/stocks', stocks);
 
-
+// Add this after all your routes but before the DB sync
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 
 db.sequelize.sync().then(() => {
   const PORT = process.env.PORT || 3001;
