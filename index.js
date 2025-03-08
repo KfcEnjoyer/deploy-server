@@ -5,14 +5,13 @@ const cors = require('cors');
 app.use(express.json());
 
 
-const corsOptions = {
-  origin: true, // You can use a string if there's only one origin
+app.use(cors({
+  origin: true, // Allow all origins
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Authorization", "Content-Type"],
-  credentials: true // Add this if you're using cookies or authentication
-};
+  credentials: true
+}));
 
-app.use(cors(corsOptions));
 app.use(express.json());
 
 const db = require("./models");
